@@ -12,14 +12,58 @@ const cartas = [
 
 const baralho = [];
 
+let primeiraCarta, segundaCarta;
+
+function resetCartas(){
+    primeiraCarta = undefined;
+    segundaCarta = undefined;
+}
+function desvirarCartas(){
+    primeiraCarta.classList.remove('virada');
+    segundaCarta.classList.remove('virada');
+
+    //resetar cartas;
+    resetCartas();
+}
+
+function vizualizarConteudo(carta){
+    
+    if(carta.classList.contains('virada')){
+        return;
+    }
+
+    if(primeiraCarta !== undefined && segundaCarta !== undefined){
+        return;
+    }
+
+    if(primeiraCarta === undefined || segundaCarta === undefined){
+        
+        carta.classList.add('virada');
+
+        if(primeiraCarta === undefined){
+            primeiraCarta = carta;
+        }else{
+            if(segundaCarta === undefined){
+                segundaCarta = carta;
+
+                //comparar os conteúdos;
+                if(primeiraCarta.innerHTML === segundaCarta.innerHTML){
+                    resetCartas();
+                }else{
+                    //esperar 1s;
+                    setTimeout(desvirarCartas, 1000);
+                }
+            }
+        }
+    }
+}
 
 function renderizarBaralho(){
-
     const tabuleiro = document.querySelector('.tabuleiro');
 
     for(let i = 0; i < baralho.length; i++){
         let cartaTemplate = `
-            <li class="carta">
+            <li class="carta" onclick="vizualizarConteudo(this)">
                 <div class='front-face face'>
                     <img src='imagens/front.png'>
                 </div>
