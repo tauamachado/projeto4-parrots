@@ -13,6 +13,8 @@ const cartas = [
 const baralho = [];
 
 let primeiraCarta, segundaCarta;
+let jogadas = 0;
+let acertos = 0;
 
 function resetCartas(){
     primeiraCarta = undefined;
@@ -24,6 +26,12 @@ function desvirarCartas(){
 
     //resetar cartas;
     resetCartas();
+}
+
+function fimDoGame(){
+    if(acertos === baralho.length){
+        alert(`Você ganhou em ${jogadas} jogadas!`)
+    }
 }
 
 function vizualizarConteudo(carta){
@@ -39,6 +47,7 @@ function vizualizarConteudo(carta){
     if(primeiraCarta === undefined || segundaCarta === undefined){
         
         carta.classList.add('virada');
+        jogadas++;
 
         if(primeiraCarta === undefined){
             primeiraCarta = carta;
@@ -49,6 +58,10 @@ function vizualizarConteudo(carta){
                 //comparar os conteúdos;
                 if(primeiraCarta.innerHTML === segundaCarta.innerHTML){
                     resetCartas();
+                    
+                    acertos += 2;
+
+                    fimDoGame();
                 }else{
                     //esperar 1s;
                     setTimeout(desvirarCartas, 1000);
