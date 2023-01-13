@@ -90,12 +90,12 @@ function renderizarBaralho(){
 
     for(let i = 0; i < baralho.length; i++){
         let cartaTemplate = `
-            <li class="carta" onclick="vizualizarConteudo(this)">
+            <li data-test="card" class="carta" onclick="vizualizarConteudo(this)">
                 <div class='front-face face'>
-                    <img src='imagens/front.png'>
+                    <img data-test="face-up-image" src='imagens/front.png'>
                 </div>
                 <div class='back-face face'>
-                    <img src='imagens/${baralho[i]}.gif'>
+                    <img data-test="face-down-image" src='imagens/${baralho[i]}.gif'>
                 </div>
             </li>  
         `;
