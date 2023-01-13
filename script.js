@@ -1,4 +1,9 @@
 let qtdCartas;
+let primeiraCarta, segundaCarta;
+let jogadas = 0;
+let acertos = 0;
+let contador = 0;
+let idInterval;
 
 const cartas = [
     "bobrossparrot",
@@ -12,9 +17,11 @@ const cartas = [
 
 const baralho = [];
 
-let primeiraCarta, segundaCarta;
-let jogadas = 0;
-let acertos = 0;
+function relogio(){
+    contador++;
+    const relogio = document.querySelector('.relogio');
+    relogio.innerHTML = contador;
+}
 
 function resetCartas(){
     primeiraCarta = undefined;
@@ -30,7 +37,14 @@ function desvirarCartas(){
 
 function fimDoGame(){
     if(acertos === baralho.length){
-        alert(`Você ganhou em ${jogadas} jogadas!`)
+
+        clearInterval(idInterval);
+
+        alert(`Você ganhou em ${jogadas} jogadas! A duração do jogo foi de ${contador} segundos!`);
+        const continuar = confirm("Gostaria de jogar novamente?");
+        if (continuar === true) {
+            window.location.reload(); //refresh;
+        }
     }
 }
 
@@ -124,6 +138,8 @@ function perguntarqtdCartas(){
     }
 
     iniciarJogo();
+
+    idInterval = setInterval(relogio, 1000);
 
 }
 perguntarqtdCartas();
